@@ -1,0 +1,1 @@
+automatic_health_declaration
