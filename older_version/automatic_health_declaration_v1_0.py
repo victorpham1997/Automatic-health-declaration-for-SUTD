@@ -3,7 +3,7 @@
 Created on Wed Jun 10 11:22:00 2020
 version 1.0
 
-@author: Pham Trung Viet
+@author: T.Vic
 note:	Require user to setup the following environment variables
 		userid --> your SUTD user id (e.g 100xxxx)
 		pw     --> your SUTD password
