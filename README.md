@@ -26,17 +26,18 @@ This is an automated python script using selenium to automatically fill in the c
 
 2. Automate it
 
-   a. For Window: 
+   a. For Window:
 
    - You can use the .bat file in the executable_file folder as the execution program, remember to edit the path to your python environment  and file respectively.
    - Use Window Task scheduler to run the bat file at the scheduled time
+   - Warning version 1.1 has not tested for window, recommend to use 1.0
 
    b. For Linux:
 
    - You can use the .sh file in the executable_file folder as the execution program, remember to edit the path to your python environment  and file respectively.
    - Use Startup Application to run it whenever you log in your machine (I tried using cron but encountered a bug in certain environmental variable)
 
-3. Enjoy never having to worry about the school sending you reminder to fill in the temperature taking else face their punishment. 
+3. Enjoy never having to worry about the school sending you reminder to fill in the temperature taking. 
 
 ## Credit
 
