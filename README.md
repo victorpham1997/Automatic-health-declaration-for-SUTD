@@ -25,6 +25,7 @@ This is an automated python script using selenium to automatically fill in the c
    - There are 2 versions, version 1.0 requires environment variable to login where as version 1.1 fetch the password and userid from chrome. Version 1.0 should be easier to run since it grab id and pw from environment variable whereas version 1.1 is more convenient but only tested on linux.
 
 2. Automate it
+
    a. For Window: 
 
    - You can use the .bat file in the executable_file folder as the execution program, remember to edit the path to your python environment  and file respectively.
