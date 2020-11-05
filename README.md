@@ -4,7 +4,7 @@ This is an automated python script using selenium to automatically fill in the c
 
 ## Dependencies
 
-1. Chrome webdriver: https://chromedriver.chromium.org/downloads (please download according to your current chrome version)
+1. Chrome webdriver: https://chromedriver.chromium.org/downloads (please download according to your **current chrome version**)
 
 2. Pip install the required module in the script (check the script and pip install any module you are missing)
 
