@@ -8,7 +8,7 @@ This is an automated python script using selenium to automatically fill in the c
 
 2. Pip install the required module in the script (check the script and pip install any module you are missing)
 
-3. (Only required if you use version 1.0) Set up environment variable:
+3. (**Only required if you use version 1.0**) Set up environment variable:
 
    - userid --> your SUTD user id (e.g 100xxxx)
 
