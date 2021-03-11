@@ -8,7 +8,7 @@ version 3
 note:	
 This version can bypass the captcha by utilising cv2 filters, BFS and pytesseract OCR. The script will attempt to make a number of attempts to inference the captcha and log in with the provided username and password. The number of try depends on your luck, the average number of try I got is usually around 10. 
 
-Please make sure to download the correct chromedriver version and update your chrome driver path! 
+Chrome driver will be automatically downloaded
 
 For SUTD account username and password, you can either hardcode inside the script or parse it as arguments to the script. Please ensure they are correct!
 
@@ -24,15 +24,18 @@ import argparse
 import os
 import time
 import cv2
+import sys
 import numpy as np
 import pytesseract
 from PIL import Image
 from matplotlib import cm
-
-
+from webdriver_manager.chrome import ChromeDriverManager
 
 class autoHealthDeclaration:
     def __init__ (self, args):
+        if sys.platform == "win32":
+            pytesseract.pytesseract.tesseract_cmd = args.tesseractpath
+
         self.sutd_declaration_url = "https://tts.sutd.edu.sg/tt_login.aspx?formmode=expire"
         self.userID_elem_name = "ctl00$pgContent1$uiLoginid" 
         self.pw_elem_name =  "ctl00$pgContent1$uiPassword"
@@ -51,9 +54,7 @@ class autoHealthDeclaration:
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-dev-shm-usage')
 
-        # ----------------------- Update your path to your selenium browser driver here-------------------------------
-        chorme_driver_path = "/path/to/your/chromedriver"
-        #-------------------------------------------------------------------------------------------------------------
+        chorme_driver_path = ChromeDriverManager().install()
 
         # Use the driver on the line below to prevent the script from creating a chrome window whenever the script run
         if args.sandbox:
@@ -64,11 +65,11 @@ class autoHealthDeclaration:
         #------------------------------ Hardcode your username and pw here!!------------------------------------------
         self.userid = ""
         self.userpw = ""
+        #-------------------------------------------------------------------------------------------------------------
         if args.username != "":
             self.userid = args.username
         if args.pw != "":
             self.userpw = args.pw
-        #-------------------------------------------------------------------------------------------------------------
         self.login = False
         self.captcha = ""
 
@@ -79,19 +80,17 @@ class autoHealthDeclaration:
         #if condition returns False, AssertionError is raised:
         assert self.userid != "" and self.userpw != "", "Username and/or password cannot be empty, either provide it in the arguments or hardcode it in the script!"
 
-        # This while loop is to keep trying to login, the average number of try is around 8.5
+        # This while loop is to keep trying to login, the average number of try is around 10
         i = 1
         while not self.login:
             self.driver.get(self.sutd_declaration_url)
             captcha = self.driver.find_element_by_id(self.captcha_image_id)
-            location = captcha.location
-            size = captcha.size
-            self.driver.save_screenshot("temp.png")
+            captcha.screenshot("temp.png")
             img  = cv2.imread("temp.png")
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            cropped = img[location["y"]:location["y"]+size["height"], location["x"]:location["x"]+size["width"]]
+            img = img[3:,3:]
 
-            self.captcha = self.bypassCaptcha(cropped).strip()
+            self.captcha = self.bypassCaptcha(img).strip()
             # self.captcha = input("Enter captcha:")
             print(f"\ncaptcha is: {self.captcha}")
             # time.sleep()
@@ -156,6 +155,7 @@ class autoHealthDeclaration:
         return out_captcha
 
     def bfs(self, visited, queue, array, node):
+        # I make BFS itterative instead of recursive to accomodate my WINDOWS friends >:]
         def getNeighboor(array, node):
             neighboors = []
             if node[0]+1<array.shape[0]:
@@ -171,17 +171,17 @@ class autoHealthDeclaration:
                 if array[node[0],node[1]-1] == 0:
                     neighboors.append((node[0],node[1]-1))
             return neighboors
-        
-        if node not in visited:
-    #         print(node)
-            visited.add(node)
-        for neighboor in getNeighboor(array, node):
-            if neighboor not in visited:
-    #             print(neighboor)
-                visited.add(neighboor)
-                queue.append(neighboor)
-        if queue:
-            self.bfs(visited, queue, array, queue.pop(0))
+
+        queue.append(node)
+        visited.add(node)
+
+        while queue:
+            current_node = queue.pop(0)
+            for neighboor in getNeighboor(array, current_node):
+                if neighboor not in visited:
+        #             print(neighboor)
+                    visited.add(neighboor)
+                    queue.append(neighboor)
             
     def removeIsland(self, img_arr, threshold):
         while 0 in img_arr:
@@ -241,10 +241,11 @@ class autoHealthDeclaration:
         alert.accept()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='This is automatic_health_declaration version 3, it can bypass captcha and help you log your temperature and health check automatically. Username and pw are hardcoded in the script, remember to update them!')
+    parser = argparse.ArgumentParser(description='This is automatic_health_declaration version 3, it can bypass captcha and help you log your temperature and health check automatically. Username and pw can be hardcoded in the script or passed as arguments!')
     parser.add_argument('-s', '--sandbox', type=bool, nargs='?', const=True, default=False , help='Will open chrome window if flag is set')
     parser.add_argument('-u', '--username', type=str, default="" , help='Input your username here or ignore it and hardcode in the script')
     parser.add_argument('-p', '--pw', type=str, default="" , help='Input your password here or ignore it and hardcode in the script')
+    parser.add_argument('-tp', '--tesseractpath', type=str, default=r'C:\Program Files\Tesseract-OCR\tesseract.exe' , help='Manually set the path to Tesseract on your system. Only for Windows')
 
     args = parser.parse_args()
     ahd = autoHealthDeclaration(args)
