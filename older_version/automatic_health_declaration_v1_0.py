@@ -13,6 +13,8 @@ note:	Require user to setup the following environment variables
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 import os
 import time
 
@@ -29,8 +31,13 @@ class autoHealthDeclaration:
         self.daily_declaration_url = "https://tts.sutd.edu.sg/tt_daily_dec_user.aspx"
         self.temperature_taking_url = "https://tts.sutd.edu.sg/tt_temperature_taking_user.aspx"
         
+        chrome_options = Options()
+        # You comment the next 3 lines to debug if there is any issue
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-dev-shm-usage')
         # Path to your selenium browser driver here
-        self.driver = webdriver.Chrome(r"C:\Users\Pham Trung Viet\Documents\chromedriver")
+        self.driver = webdriver.Chrome("/home/victorpham1997/Documents/chromedriver", chrome_options=chrome_options)
         
     
     def main(self):
