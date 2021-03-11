@@ -39,14 +39,13 @@ This is an automated python script using selenium, cv2 and Pytesseract to automa
 
    - You can use the .bat file in the executable_file folder as the execution program, remember to edit the path to your python environment and python file respectively in your .bat file.
    - Use Window Task scheduler to run the bat file at the scheduled time
-   
-b. For Linux:
-   
-- You can use the .sh file in the executable_file folder as the execution program, remember to edit the path to your python environment  and file python respectively in your .sh file.
-   - Use Startup Application to run it whenever you log in your machine. Or use crontab to schedule it.
-   
-3. Enjoy never having to worry about the school sending you reminder to fill in the temperature taking. 
 
+   b. For Linux:
+
+   - You can use the .sh file in the executable_file folder as the execution program, remember to edit the path to your python environment  and file python respectively in your .sh file.
+   - Use Startup Application to run it whenever you log in your machine. Or use crontab to schedule it.
+
+Enjoy never having to worry about the school sending you reminder to fill in the temperature taking. 
 ## Credit
 
 The chrome pw fetching was done with the help of this repo: https://github.com/priyankchheda/chrome_password_grabber
