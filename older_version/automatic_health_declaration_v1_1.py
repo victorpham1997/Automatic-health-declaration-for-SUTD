@@ -55,7 +55,7 @@ class autoHealthDeclaration:
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-dev-shm-usage')
         # Path to your selenium browser driver here
-        self.driver = webdriver.Chrome("/home/victorpham1997/Documents/chromedriver", chrome_options=chrome_options)
+        self.driver = webdriver.Chrome("/path/to/Documents/chromedriver", chrome_options=chrome_options)
         
         #Get username and password from chrome
         chrome_machine = Chrome()

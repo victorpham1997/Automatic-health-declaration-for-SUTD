@@ -23,7 +23,7 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome("/home/victorpham1997/Documents/chromedriver")
+driver = webdriver.Chrome("/path/to/Documents/chromedriver")
 
 driver.get("https://tts.sutd.edu.sg/tt_daily_dec_user.aspx")
 driver.delete_cookie("ASP.NET_SessionId")

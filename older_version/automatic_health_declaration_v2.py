@@ -35,7 +35,7 @@ class autoHealthDeclaration:
         # Path to your selenium browser driver here
         self.session_id = "f55ybszozzanjbnnk2oqfaej"
         # self.driver = webdriver.Chrome("/home/victorpham1997/Documents/chromedriver", chrome_options=chrome_options)
-        self.driver = webdriver.Chrome("/home/victorpham1997/Documents/chromedriver")
+        self.driver = webdriver.Chrome("/path/to/Documents/chromedriver")
         # self.driver.add_cookie({'name':"ASP.NET_SessionId", 
         # 	"value" : self.session_id,
         # 	"domain": "tts.sutd.edu.sg",
