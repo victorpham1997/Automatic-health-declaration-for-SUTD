@@ -38,12 +38,10 @@ The script has been tested on Linux(Ubuntu) and Windows 10
 
    - Chrome webdriver will be downloaded automatically so no need to worry about that
 
-   - 
-
    - For username and password, you have 2 options:
 
      1.  Hardcoding them inside the script: You can hardcode your username and password into the script in the highlighted section 
-   
+
      2. Pass them as arguments: You can pass them as argument to the script by using `-u` and `-p` tag for username and password respectively. 
         For example: `python3 automatic_health_declaration_v3.py -u 1009999 -p helloworld`
         
@@ -52,7 +50,7 @@ The script has been tested on Linux(Ubuntu) and Windows 10
    - Ensure `-s` or `--sandbox`  tag is set to be able to manually test the process
    
    - Run the script manually and make sure it works before automating it.
-
+   
 2. Output for ```python3 automatic_health_declaration_v3.py -h```
 
    ```
