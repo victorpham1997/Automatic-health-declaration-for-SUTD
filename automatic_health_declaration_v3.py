@@ -38,7 +38,8 @@ class autoHealthDeclaration:
         if sys.platform == "win32":
             pytesseract.pytesseract.tesseract_cmd = args.tesseractpath
 
-        self.log_path = os.path.abspath("auto_health_log.txt")
+        self.abs_path = os.path.realpath(__file__)[:-len(os.path.basename(__file__))]
+        self.log_path = os.path.abspath(self.abs_path + "auto_health_log.txt")
 
         self.sutd_declaration_url = "https://tts.sutd.edu.sg/tt_login.aspx?formmode=expire"
         self.userID_elem_name = "ctl00$pgContent1$uiLoginid" 
@@ -89,8 +90,8 @@ class autoHealthDeclaration:
         while not self.login:
             self.driver.get(self.sutd_declaration_url)
             captcha = self.driver.find_element_by_id(self.captcha_image_id)
-            captcha.screenshot("temp.png")
-            img  = cv2.imread("temp.png")
+            captcha.screenshot(self.abs_path+"temp.png")
+            img  = cv2.imread(self.abs_path+"temp.png")
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             img = img[3:,3:]
 
@@ -267,3 +268,5 @@ if __name__ == "__main__":
     ahd = autoHealthDeclaration(args)
     ahd.main()
     exit(10)
+    # print(os.path.realpath(__file__)[-len(os.path.basename(__file__)):])
+    # print(os.path.realpath(__file__)[:-len(os.path.basename(__file__))])
