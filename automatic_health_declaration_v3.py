@@ -23,8 +23,10 @@ from selenium.webdriver.common.keys import Keys
 import argparse
 import os
 import time
+import datetime
 import cv2
 import sys
+import os
 import numpy as np
 import pytesseract
 from PIL import Image
@@ -35,6 +37,8 @@ class autoHealthDeclaration:
     def __init__ (self, args):
         if sys.platform == "win32":
             pytesseract.pytesseract.tesseract_cmd = args.tesseractpath
+
+        self.log_path = os.path.abspath("auto_health_log.txt")
 
         self.sutd_declaration_url = "https://tts.sutd.edu.sg/tt_login.aspx?formmode=expire"
         self.userID_elem_name = "ctl00$pgContent1$uiLoginid" 
@@ -65,7 +69,7 @@ class autoHealthDeclaration:
         #------------------------------ Hardcode your username and pw here!!------------------------------------------
         self.userid = ""
         self.userpw = ""
-        #-------------------------------------------------------------------------------------------------------------
+        #--------------------------Else you have to manually pass it as arguement-------------------------------------
         if args.username != "":
             self.userid = args.username
         if args.pw != "":
@@ -99,6 +103,12 @@ class autoHealthDeclaration:
                 print(current_url)
                 if current_url == self.login_page_url:
                     print(f"Login succeeded after {i} tries!\nMoving on to next step!")
+                    try:
+                        f = open(self.log_path, "a")
+                        f.write(f"{datetime.datetime.now()}    Succeeded after {i} tries\n")
+                        f.close()
+                    except:
+                        print(f"Cannot write to log file at {self.log_path}, please check if your path is valid")
                     self.login = True
                 else:
                     print(f"Inferenced captcha {self.captcha} is incorrect, retrying for the {i} time...")
@@ -107,7 +117,13 @@ class autoHealthDeclaration:
             i+=1
             if i > 100:
                 print("Loop timeout, please check your username and password and make sure it is correct before trying again (or you are just very very very unlucky :(")
-                break
+                try:
+                    f = open(self.log_path, "a")
+                    f.write(f"{datetime.datetime.now()}    Failed\n")
+                    f.close()
+                except:
+                    print(f"Cannot write to log file at {self.log_path}, please check if your path is valid")
+                exit()
 
 
         self.tempTaking()

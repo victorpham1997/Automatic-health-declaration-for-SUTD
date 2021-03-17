@@ -7,6 +7,7 @@ The script has been tested on Linux(Ubuntu) and Windows 10
 ## Update
 
 - Version 3 is out, it can **bypass the captcha** :) Due to the updated captcha system **only version 3 is working.**
+- Tested v3 on both Linux and Windows 10
 
 ## Dependencies
 
@@ -26,7 +27,7 @@ The script has been tested on Linux(Ubuntu) and Windows 10
      C:\Program Files\Tesseract-OCR\
      ```
 
-     If the path is different from above, you have to manually input the path using the tag `-tp` or` --tesseractpath` to pass as argument to the script.	
+     If the path is different from above, you have to manually input the path using the argument tag `-tp` or` --tesseractpath` to pass as argument to the script.	
 
 
 ## Usage
@@ -37,18 +38,19 @@ The script has been tested on Linux(Ubuntu) and Windows 10
 
    - Chrome webdriver will be downloaded automatically so no need to worry about that
 
+   - 
+
    - For username and password, you have 2 options:
 
      1.  Hardcoding them inside the script: You can hardcode your username and password into the script in the highlighted section 
-
-     2. Pass them as arguments: You can pass them as arguement to the script by using `-u` and `-p` tag for username and password respectively. 
+   
+     2. Pass them as arguments: You can pass them as argument to the script by using `-u` and `-p` tag for username and password respectively. 
         For example: `python3 automatic_health_declaration_v3.py -u 1009999 -p helloworld`
-
-
+        
         Please ensure username and password are correct!
-
+     
    - Ensure `-s` or `--sandbox`  tag is set to be able to manually test the process
-
+   
    - Run the script manually and make sure it works before automating it.
 
 2. Output for ```python3 automatic_health_declaration_v3.py -h```
@@ -95,3 +97,4 @@ The chrome pw fetching was done with the help of this repo: https://github.com/p
 OCR engine was done by Pytesseract: https://github.com/madmaze/pytesseract
 
 Image filter was done using OpenCV library: https://github.com/opencv/opencv-python
+
